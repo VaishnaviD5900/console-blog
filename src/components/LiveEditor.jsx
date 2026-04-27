@@ -239,7 +239,7 @@ export default function LiveEditor({ lang, initialCode = '', initialHtml = '', i
         </div>
       </div>
 
-      {/* Monaco pane — shown for code / css / html tabs */}
+      {/* Monaco pane - shown for code / css / html tabs */}
       {tab !== 'result' && (
         <div className={styles.monacoWrap}>
           <Editor

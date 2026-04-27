@@ -3,7 +3,7 @@ export const posts = [
     id: 'z-index-stacking-contexts',
     title: "Why Your z-index Isn't Working (And Why 999999 Won't Save You)",
     excerpt:
-      "You've typed z-index: 99999. It still doesn't work. There's a reason — and the number is never the problem. Let's talk about stacking contexts.",
+      "You've typed z-index: 99999. It still doesn't work. There's a reason - and the number is never the problem. Let's talk about stacking contexts.",
     tag: 'css',
     date: 'Apr 26, 2026',
     readTime: '5 min read',
@@ -19,20 +19,20 @@ export const posts = [
     content: `
 We've all done it.
 
-Something's overlapping wrong. You crack your knuckles and type \`z-index: 999\`. Still broken. You think, okay, not enough — \`z-index: 999999\`. Still broken. At this point you're questioning your career choices.
+Something's overlapping wrong. You crack your knuckles and type \`z-index: 999\`. Still broken. You think, okay, not enough - \`z-index: 999999\`. Still broken. At this point you're questioning your career choices.
 
 Here's the thing: the problem is almost never the number. It's that you're misunderstanding how z-index actually works. Let's fix that.
 
-## First things first — z-index needs a positioned element
+## First things first - z-index needs a positioned element
 
-Z-index only works when the element has a \`position\` value that isn't \`static\` (which is the default). So if you haven't set \`position: relative\`, \`absolute\`, \`fixed\`, or \`sticky\` — your z-index is basically a comment. The browser ignores it entirely.
+Z-index only works when the element has a \`position\` value that isn't \`static\` (which is the default). So if you haven't set \`position: relative\`, \`absolute\`, \`fixed\`, or \`sticky\` - your z-index is basically a comment. The browser ignores it entirely.
 
 \`\`\`csshtml
 HTML:
-<p class="label">👆 Box A (purple) should be on top — it has z-index: 2</p>
+<p class="label">👆 Box A (purple) should be on top - it has z-index: 2</p>
 <div class="box box-a">Box A<br/><span>z-index: 2</span></div>
 <div class="box box-b">Box B<br/><span>z-index: 1</span></div>
-<p class="hint">Remove <code>position: relative</code> from <code>.box-a</code> in the CSS tab and hit ▶ run.<br/>Box B will jump on top — z-index only works on positioned elements.</p>
+<p class="hint">Remove <code>position: relative</code> from <code>.box-a</code> in the CSS tab and hit ▶ run.<br/>Box B will jump on top - z-index only works on positioned elements.</p>
 <p class="hint">Try it: remove <code>position: relative</code> from <code>.box-a</code> and hit ▶ run</p>
 CSS:
 body {
@@ -62,7 +62,7 @@ body {
   border-radius: 3px;
 }
 
-/* No position on the base class — each box sets its own */
+/* No position on the base class - each box sets its own */
 .box {
   width: 130px;
   height: 130px;
@@ -84,17 +84,17 @@ body {
   margin-top: 4px;
 }
 
-/* Box A is first in the DOM — without positioning, DOM order means Box B paints over it */
+/* Box A is first in the DOM - without positioning, DOM order means Box B paints over it */
 .box-a {
   background: #7c6af7;
   color: #fff;
-  position: relative; /* ← remove this and hit Run — Box B covers Box A */
+  position: relative; /* ← remove this and hit Run - Box B covers Box A */
   z-index: 2;
   margin-bottom: -60px; /* overlap with Box B below */
   margin-left: 20px;
 }
 
-/* Box B is second in DOM — later = paints on top when z-index is disabled */
+/* Box B is second in DOM - later = paints on top when z-index is disabled */
 .box-b {
   background: #f97316;
   color: #fff;
@@ -110,7 +110,7 @@ That alone fixes a surprising number of cases. But if you're still stuck, there'
 
 This is where most people's mental model breaks down.
 
-A **stacking context** is essentially a self-contained layer in the page. Elements inside a stacking context are stacked and compared *only within that context* — they can't "escape" it to compete with elements outside.
+A **stacking context** is essentially a self-contained layer in the page. Elements inside a stacking context are stacked and compared *only within that context* - they can't "escape" it to compete with elements outside.
 
 Think of it like floors in a building. You can be the tallest person on Floor 2, but you're still below everyone on Floor 3. Your height (z-index) only matters within your own floor.
 
@@ -134,7 +134,7 @@ HTML:
   .parent has transform ⚠️
   <div class="child">Child<br/><span>z-index: 9999</span></div>
 </div>
-<p class="hint">Even though .child has z-index: 9999, it can't escape its parent's stacking context.<br/>Try removing <code>transform: translateX(0)</code> from <code>.parent</code> — child breaks free!</p>
+<p class="hint">Even though .child has z-index: 9999, it can't escape its parent's stacking context.<br/>Try removing <code>transform: translateX(0)</code> from <code>.parent</code> - child breaks free!</p>
 CSS:
 body {
   background: #0d0d0f;
@@ -179,9 +179,9 @@ body {
 
 .outside span { font-size: 11px; font-weight: normal; opacity: 0.8; margin-top: 4px; }
 
-/* transform creates a stacking context — traps child's z-index inside */
+/* transform creates a stacking context - traps child's z-index inside */
 .parent {
-  transform: translateX(0); /* ← remove this — child escapes! */
+  transform: translateX(0); /* ← remove this - child escapes! */
   background: rgba(124,106,247,0.15);
   border: 1px dashed #7c6af7;
   border-radius: 10px;
@@ -194,7 +194,7 @@ body {
 
 .child {
   position: relative;
-  z-index: 9999; /* trapped — can't beat .outside's z-index: 10 */
+  z-index: 9999; /* trapped - can't beat .outside's z-index: 10 */
   background: #7c6af7;
   color: #fff;
   width: 120px;
@@ -216,9 +216,9 @@ body {
 ## How to actually debug this
 
 1. **Is the element positioned?** Add \`position: relative\` if not
-2. **Check the parents** — open DevTools, walk up the DOM tree and look for \`transform\`, \`opacity\`, \`filter\` on any ancestor
+2. **Check the parents** - open DevTools, walk up the DOM tree and look for \`transform\`, \`opacity\`, \`filter\` on any ancestor
 3. **Use \`isolation: isolate\`** on a parent to intentionally create a stacking context
-4. **Stop escalating the number** — if \`9999\` doesn't work, \`999999\` won't either
+4. **Stop escalating the number** - if \`9999\` doesn't work, \`999999\` won't either
 
 ## The clean solution: isolation
 
@@ -237,7 +237,7 @@ HTML:
 </div>
 <p class="hint">
   With <code>isolation: isolate</code>: orange tooltip (z:5) sits on top of purple dropdown (z:9999) ✅<br/>
-  Remove <code>isolation: isolate</code> from <code>.component</code> and hit ▶ run — purple wins because 9999 &gt; 5 ❌
+  Remove <code>isolation: isolate</code> from <code>.component</code> and hit ▶ run - purple wins because 9999 &gt; 5 ❌
 </p>
 CSS:
 body {
@@ -286,7 +286,7 @@ body {
 
 /* Component: isolation contains its children's z-index */
 .component {
-  isolation: isolate; /* ← remove this — dropdown (z:9999) will cover the tooltip */
+  isolation: isolate; /* ← remove this - dropdown (z:9999) will cover the tooltip */
   position: absolute;
   top: 0;
   left: 0;
@@ -323,7 +323,7 @@ This is especially useful in design systems or component libraries where you don
 
 ## TL;DR
 
-- Z-index needs \`position\` set — without it, nothing works
+- Z-index needs \`position\` set - without it, nothing works
 - Stacking contexts are invisible layers that trap z-index values
 - Common triggers: \`transform\`, \`opacity < 1\`, \`filter\`, \`position: fixed\`
 - Debug by inspecting parent elements in DevTools
@@ -336,12 +336,12 @@ Next time you're tempted to type \`z-index: 99999\`, pause. Open DevTools. Check
     id: 'stop-using-px',
     title: "Stop Using px for Everything. Here's What to Use Instead.",
     excerpt:
-      'rem, em, vh, vw, clamp() — when to use what and why your font sizes are probably wrong.',
+      'rem, em, vh, vw, clamp() - when to use what and why your font sizes are probably wrong.',
     tag: 'bestpractice',
     date: 'Apr 15, 2026',
     readTime: '6 min read',
     featured: false,
-    content: `If every unit in your CSS is \`px\`, you're making your own life harder. Not because px is bad — it has its place — but because you're using a fixed hammer for problems that need flexible tools.
+    content: `If every unit in your CSS is \`px\`, you're making your own life harder. Not because px is bad - it has its place - but because you're using a fixed hammer for problems that need flexible tools.
 
 Let's break down what to actually use and when.
 
@@ -351,7 +351,7 @@ Pixels are absolute. They don't scale with user preferences. If someone has bump
 
 That's a bad user experience. It also makes responsive design harder than it needs to be.
 
-## rem — your new best friend for typography
+## rem - your new best friend for typography
 
 \`rem\` is relative to the root font size (the \`<html>\` element). By default, that's 16px in most browsers.
 
@@ -359,12 +359,12 @@ That's a bad user experience. It also makes responsive design harder than it nee
 HTML:
 <div class="demo">
   <h1>Heading (2.5rem)</h1>
-  <p>Paragraph text (1rem) — the base reading size</p>
-  <small>Small text (0.875rem) — captions, labels</small>
-  <p class="hint">👆 Try changing <code>html { font-size }</code> to <code>20px</code> in CSS — everything scales together!</p>
+  <p>Paragraph text (1rem) - the base reading size</p>
+  <small>Small text (0.875rem) - captions, labels</small>
+  <p class="hint">👆 Try changing <code>html { font-size }</code> to <code>20px</code> in CSS - everything scales together!</p>
 </div>
 CSS:
-/* Change this one value — everything below scales with it */
+/* Change this one value - everything below scales with it */
 html { font-size: 16px; }
 
 body {
@@ -404,7 +404,7 @@ The magic: if a user changes their browser font size, everything scales with it.
 
 **Use rem for:** font sizes, and spacing that should scale with type (padding on text-heavy components).
 
-## em — relative to the parent
+## em - relative to the parent
 
 \`em\` is relative to the *current element's* font size, or its parent's if it doesn't have one set.
 
@@ -416,7 +416,7 @@ HTML:
 </div>
 <div class="card large-card">
   <h3>Large Card</h3>
-  <p>Same CSS, different font-size — the <code>1em</code> padding makes it proportionally bigger automatically.</p>
+  <p>Same CSS, different font-size - the <code>1em</code> padding makes it proportionally bigger automatically.</p>
 </div>
 CSS:
 body {
@@ -462,11 +462,11 @@ body {
 .large-card { font-size: 1.25rem; }
 \`\`\`
 
-This is powerful for components that need internal spacing to scale with their own text size. But it can get confusing when nested — \`em\` compounds, so a child inside a child can end up with unexpected sizes.
+This is powerful for components that need internal spacing to scale with their own text size. But it can get confusing when nested - \`em\` compounds, so a child inside a child can end up with unexpected sizes.
 
 **Use em for:** internal component spacing, icon sizes relative to their surrounding text.
 
-## clamp() — fluid everything
+## clamp() - fluid everything
 
 This is the one that changes how you think about responsive design.
 
@@ -474,18 +474,18 @@ This is the one that changes how you think about responsive design.
 HTML:
 <div class="demo">
   <h1>Fluid Heading with clamp()</h1>
-  <p class="sub">This heading uses <code>clamp(1.8rem, 5vw, 3.5rem)</code> — it never gets smaller than 1.8rem or bigger than 3.5rem, but scales smoothly in between.</p>
+  <p class="sub">This heading uses <code>clamp(1.8rem, 5vw, 3.5rem)</code> - it never gets smaller than 1.8rem or bigger than 3.5rem, but scales smoothly in between.</p>
   <div class="compare">
     <div class="box fixed">
       <span class="box-label">px (fixed)</span>
-      <p class="fixed-text">Fixed 32px — never changes</p>
+      <p class="fixed-text">Fixed 32px - never changes</p>
     </div>
     <div class="box fluid">
       <span class="box-label">clamp() (fluid)</span>
       <p class="fluid-text">Scales with viewport</p>
     </div>
   </div>
-  <p class="hint">👆 Try changing the clamp values — e.g. <code>clamp(1rem, 8vw, 5rem)</code> for a more dramatic effect</p>
+  <p class="hint">👆 Try changing the clamp values - e.g. <code>clamp(1rem, 8vw, 5rem)</code> for a more dramatic effect</p>
 </div>
 CSS:
 body {
@@ -616,10 +616,10 @@ HTML:
 <div class="cards">
   <div class="card">
     <img src="https://picsum.photos/seed/a/300/120" alt="demo"/>
-    <div class="card-body">Card with image — padding: 0 on the card, padding on body only</div>
+    <div class="card-body">Card with image - padding: 0 on the card, padding on body only</div>
   </div>
   <div class="card">
-    <div class="card-body">Card without image — full padding on the card itself</div>
+    <div class="card-body">Card without image - full padding on the card itself</div>
   </div>
 </div>
 CSS:
@@ -643,7 +643,7 @@ body {
 }
 .hint code { background: rgba(45,212,191,0.2); padding: 1px 5px; border-radius: 3px; }
 
-/* :has(input:focus) — styles the PARENT when child input is focused */
+/* :has(input:focus) - styles the PARENT when child input is focused */
 .field {
   display: flex;
   flex-direction: column;
@@ -667,7 +667,7 @@ body {
   font-family: sans-serif;
 }
 
-/* :has(img) — card with image gets no top padding, image goes edge to edge */
+/* :has(img) - card with image gets no top padding, image goes edge to edge */
 .cards { display: flex; flex-direction: column; gap: 1rem; }
 
 .card {
@@ -690,11 +690,11 @@ That second example is the one that used to require JavaScript. Now it's one lin
 
 ## Real-world use cases
 
-**Navigation with active items** — nav background changes when any child has \`.active\`:
+**Navigation with active items** - nav background changes when any child has \`.active\`:
 
 \`\`\`csshtml
 HTML:
-<p class="hint">👆 Click a nav item to make it active — watch the nav bar change</p>
+<p class="hint">👆 Click a nav item to make it active - watch the nav bar change</p>
 <nav>
   <a href="#" onclick="toggle(this)">Home</a>
   <a href="#" onclick="toggle(this)" class="active">Blog</a>
@@ -727,7 +727,7 @@ nav {
   transition: background 0.3s, border-color 0.3s;
 }
 
-/* :has(.active) — styles the nav itself when any child is active */
+/* :has(.active) - styles the nav itself when any child is active */
 nav:has(.active) {
   background: rgba(124,106,247,0.12);
   border-color: rgba(124,106,247,0.3);
@@ -746,7 +746,7 @@ nav a.active { color: #e8e8f0; background: rgba(124,106,247,0.2); }
 nav a:hover  { color: #e8e8f0; }
 \`\`\`
 
-**Forms — field group highlights when input is valid:**
+**Forms - field group highlights when input is valid:**
 
 \`\`\`csshtml
 HTML:
@@ -778,14 +778,14 @@ body { background: #0d0d0f; color: #e8e8f0; font-family: sans-serif; padding: 1.
   max-width: 320px;
 }
 
-/* :has(input:valid) — styles parent AND sibling label when input is valid */
+/* :has(input:valid) - styles parent AND sibling label when input is valid */
 .field-group:has(input:valid) {
   border-color: #2dd4bf;
   background: rgba(45,212,191,0.04);
 }
 
 .field-group:has(input:valid) .label {
-  color: #2dd4bf; /* label turns green — no JS needed */
+  color: #2dd4bf; /* label turns green - no JS needed */
 }
 
 .field-group:has(input:valid) .status::after {
@@ -808,7 +808,7 @@ One of the most powerful uses is styling based on *how many* children exist:
 
 \`\`\`csshtml
 HTML:
-<p class="hint">👆 Click "Add item" to add cards — layout switches to 3 columns automatically at 3+ items</p>
+<p class="hint">👆 Click "Add item" to add cards - layout switches to 3 columns automatically at 3+ items</p>
 <button onclick="addItem()">+ Add item</button>
 <button onclick="removeItem()" style="margin-left:8px">− Remove item</button>
 <div class="grid" id="grid">
@@ -853,12 +853,12 @@ button {
   transition: all 0.3s;
 }
 
-/* :has(:nth-child(3)) — switches to 3 cols when 3+ items exist */
+/* :has(:nth-child(3)) - switches to 3 cols when 3+ items exist */
 .grid:has(:nth-child(3)) {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* :has(:nth-child(5)) — switches to 4 cols when 5+ items */
+/* :has(:nth-child(5)) - switches to 4 cols when 5+ items */
 .grid:has(:nth-child(5)) {
   grid-template-columns: repeat(4, 1fr);
 }
@@ -879,7 +879,7 @@ No JavaScript for the layout. No class toggling. The grid adapts automatically t
 
 ## Browser support
 
-As of 2024, \`:has()\` is supported in all major browsers — Chrome, Firefox, Safari, Edge. You're good to use it in production.
+As of 2024, \`:has()\` is supported in all major browsers - Chrome, Firefox, Safari, Edge. You're good to use it in production.
 
 ## What this replaces
 
@@ -910,7 +910,7 @@ I did the refactor. I checked it locally. Everything looked fine. I pushed. I de
 
 ## What actually happened
 
-Turns out, one of the class names I renamed — \`.container\` to \`.page-container\` — wasn't just used in the component I was looking at. It was used in **eleven other places** across the codebase. A global utility class that had been quietly holding the layout together for two years.
+Turns out, one of the class names I renamed - \`.container\` to \`.page-container\` - wasn't just used in the component I was looking at. It was used in **eleven other places** across the codebase. A global utility class that had been quietly holding the layout together for two years.
 
 When I renamed it in the CSS without updating every usage in the HTML and JSX, those eleven pages just... collapsed. No container. No max-width. No padding. Content stretching wall to wall at full browser width.
 
@@ -940,7 +940,7 @@ This one is just life advice.
 
 ## The lesson
 
-Global CSS classes are landmines. Treat every rename like you're defusing one — slowly, with full visibility of everything it touches. One ctrl+shift+F before you delete anything. That's all it takes.`,
+Global CSS classes are landmines. Treat every rename like you're defusing one - slowly, with full visibility of everything it touches. One ctrl+shift+F before you delete anything. That's all it takes.`,
   },
 ]
 

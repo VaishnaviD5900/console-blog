@@ -75,6 +75,9 @@
   border: 1px solid var(--border2);
   color: var(--muted);
   letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .linkList {
