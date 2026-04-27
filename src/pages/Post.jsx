@@ -4,6 +4,7 @@ import { posts } from '../data/posts'
 import Tag from '../components/Tag'
 import Blobs from '../components/Blobs'
 import LiveEditor from '../components/LiveEditor'
+import LikeButton from '../components/LikeButton'
 import styles from './Post.module.css'
 
 function renderContent(content) {
@@ -176,6 +177,7 @@ export default function Post() {
         <div className={styles.footer}>
           <p className={styles.footerText}>// found this useful?</p>
           <div className={styles.footerActions}>
+            <LikeButton postId={post.id} />
             <a href="https://www.linkedin.com/in/vaishnavi-p-deshpande/" target="_blank" rel="noreferrer" className={styles.btnOutline}>
               connect on linkedin
             </a>
