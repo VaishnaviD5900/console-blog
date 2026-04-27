@@ -25,8 +25,8 @@ export default function Home() {
 
       <section className={styles.hero}>
         <h1 className={styles.heroTitle}>
-          Where CSS <span className={styles.highlight}>breaks</span>
-          <br />and bugs get<br />explained.
+          Where developers <span className={styles.highlight}>debug,</span>
+          <br />learn and<br />level up!
         </h1>
         <p className={styles.heroSub}>
           <span className={styles.key}>const</span> blog = &#123;<br />
