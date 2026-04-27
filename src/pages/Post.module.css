@@ -1,0 +1,211 @@
+.article {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.back {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 3rem;
+  display: block;
+  transition: color 0.2s;
+  letter-spacing: 0.04em;
+}
+.back:hover { color: var(--text); }
+
+.header { margin-bottom: 2rem; }
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 1rem 0 0.75rem;
+  color: var(--text);
+}
+
+.meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.dot { opacity: 0.4; }
+
+.lead {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.8;
+  border-left: 2px solid var(--accent1);
+  padding-left: 1rem;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2.5rem 0;
+}
+
+/* Content styles */
+.content { color: var(--text); }
+
+.content :global(.inline-code) {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  background: rgba(124, 106, 247, 0.1);
+  color: var(--accent1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(124, 106, 247, 0.2);
+}
+
+.para {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: rgba(232, 232, 240, 0.85);
+  margin-bottom: 1.25rem;
+}
+
+.h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 2rem 0 0.75rem;
+}
+
+.codeBlock {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.75;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  position: relative;
+  color: #c9d1d9;
+}
+
+.codeLang {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.list {
+  margin: 1rem 0 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.list li {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(232, 232, 240, 0.85);
+  padding-left: 0.25rem;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: var(--bg2);
+  color: var(--accent1);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+
+.table td {
+  padding: 0.75rem 1rem;
+  color: rgba(232, 232, 240, 0.8);
+  border-bottom: 1px solid var(--border);
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: var(--bg2); }
+
+/* Footer CTA */
+.footer { text-align: center; padding: 1rem 0; }
+
+.footerText {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.footerActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnOutline {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 9px 20px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btnOutline:hover { color: var(--text); border-color: var(--muted); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .article { padding: 2rem 1rem 4rem; }
+}

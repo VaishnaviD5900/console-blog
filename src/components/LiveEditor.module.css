@@ -1,0 +1,200 @@
+/* ── Collapsed (static) ───────────────────────────────────────────────────── */
+
+.collapsed {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s;
+}
+.collapsed:hover { border-color: var(--border2); }
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+
+.barActions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.staticCode {
+  padding: 1.2rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.75;
+  color: #c9d1d9;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}
+
+/* ── Expanded editor ──────────────────────────────────────────────────────── */
+
+.editor {
+  background: var(--bg2);
+  border: 1px solid var(--accent1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow:
+    0 0 0 1px rgba(124,106,247,0.15),
+    0 8px 32px rgba(124,106,247,0.08);
+}
+
+/* ── Toolbar ──────────────────────────────────────────────────────────────── */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.025);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tabs { display: flex; gap: 2px; }
+
+.tab {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.15s;
+}
+.tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.tabActive  { color: var(--text) !important; background: rgba(255,255,255,0.07) !important; }
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.langBadge {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(124,106,247,0.12);
+  color: var(--accent1);
+  border: 1px solid rgba(124,106,247,0.2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.iconBtn {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--muted);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.iconBtn:hover { color: var(--text); border-color: var(--border2); }
+
+.runBtn {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 4px 14px;
+  background: var(--accent2);
+  color: #0d0d0f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: opacity 0.15s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.runBtn:hover  { opacity: 0.85; transform: translateY(-1px); }
+.runBtn:active { transform: scale(0.97); }
+
+.shortcut {
+  font-size: 0.58rem;
+  opacity: 0.55;
+  letter-spacing: 0;
+}
+
+/* ── Monaco wrapper ───────────────────────────────────────────────────────── */
+
+.monacoWrap {
+  /* Monaco manages its own height via the height prop */
+  border-bottom: 1px solid var(--border);
+}
+
+/* Override Monaco's default white background that can flash on load */
+.monacoWrap :global(.monaco-editor),
+.monacoWrap :global(.monaco-editor-background),
+.monacoWrap :global(.monaco-editor .margin) {
+  background-color: #0d0d0f !important;
+}
+
+.loading {
+  padding: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: #0d0d0f;
+  letter-spacing: 0.05em;
+}
+
+/* ── Result / preview ─────────────────────────────────────────────────────── */
+
+.resultPane {
+  height: 340px;
+  background: #0d0d0f;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.emptyResult {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ── Footer hint ──────────────────────────────────────────────────────────── */
+
+.hint {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  padding: 0.45rem 1rem;
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.12);
+  letter-spacing: 0.05em;
+}
