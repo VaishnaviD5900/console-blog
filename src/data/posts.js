@@ -5,7 +5,7 @@ export const posts = [
     excerpt:
       "You've typed z-index: 99999. It still doesn't work. There's a reason — and the number is never the problem. Let's talk about stacking contexts.",
     tag: 'css',
-    date: 'Apr 26, 2025',
+    date: 'Apr 26, 2026',
     readTime: '5 min read',
     featured: true,
     codePreview: [
@@ -338,7 +338,7 @@ Next time you're tempted to type \`z-index: 99999\`, pause. Open DevTools. Check
     excerpt:
       'A true story. A painful story. A story that will make you feel better about yourself.',
     tag: 'epicfail',
-    date: 'Apr 20, 2025',
+    date: 'Apr 20, 2026',
     readTime: '3 min read',
     featured: false,
     content: `It happens to the best of us. Three hours. Three long hours of console.log, stack traces, and existential dread. And the culprit? A single missing semicolon hiding in a config file that wasn't even in the component I was debugging.
@@ -422,7 +422,7 @@ You'll have days like this. We all do. The semicolon wins sometimes. But now you
     excerpt:
       'rem, em, vh, vw, clamp() — when to use what and why your font sizes are probably wrong.',
     tag: 'bestpractice',
-    date: 'Apr 15, 2025',
+    date: 'Apr 15, 2026',
     readTime: '6 min read',
     featured: false,
     content: `If every unit in your CSS is \`px\`, you're making your own life harder. Not because px is bad — it has its place — but because you're using a fixed hammer for problems that need flexible tools.
@@ -677,7 +677,7 @@ Start with this, and you'll write CSS that's more flexible, more accessible, and
     excerpt:
       'No JavaScript. No wrapper divs. Just a CSS selector that finally lets you style a parent based on its children.',
     tag: 'css',
-    date: 'Apr 5, 2025',
+    date: 'Apr 5, 2026',
     readTime: '5 min read',
     featured: false,
     content: `For years, CSS could only go one direction: from parent to child. You could style a child based on its parent's class, but you could never style a parent based on what was inside it. That forced us into JavaScript workarounds, extra wrapper elements, and a lot of frustrated sighing.
@@ -979,7 +979,7 @@ As of 2024, \`:has()\` is supported in all major browsers — Chrome, Firefox, S
     excerpt:
       'One wrong CSS override. One missing class name. One very long Friday afternoon.',
     tag: 'epicfail',
-    date: 'Apr 10, 2025',
+    date: 'Apr 10, 2026',
     readTime: '4 min read',
     featured: false,
     content: `I'm going to tell you something embarrassing. Not because I enjoy reliving it, but because if it saves even one of you from the same fate, it'll have been worth it.
