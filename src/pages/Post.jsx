@@ -175,9 +175,10 @@ export default function Post() {
         <div className={styles.divider} />
 
         <div className={styles.footer}>
-          <p className={styles.footerText}>// found this useful?</p>
-          <div className={styles.footerActions}>
+          <div className={styles.footerLeft}>
             <LikeButton postId={post.id} />
+          </div>
+          <div className={styles.footerRight}>
             <a href="https://www.linkedin.com/in/vaishnavi-p-deshpande/" target="_blank" rel="noreferrer" className={styles.btnOutline}>
               connect on linkedin
             </a>

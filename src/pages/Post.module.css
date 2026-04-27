@@ -169,19 +169,24 @@
 .table tr:hover td { background: var(--bg2); }
 
 /* Footer CTA */
-.footer { text-align: center; padding: 1rem 0; }
-
-.footerText {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin-bottom: 1.25rem;
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.footerActions {
+.footerLeft {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  align-items: center;
+}
+
+.footerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
