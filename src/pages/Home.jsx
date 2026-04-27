@@ -39,17 +39,11 @@ export default function Home() {
           &#125;
         </p>
         <div className={styles.heroActions}>
-          <button
-            className={styles.btnPrimary}
-            onClick={() => document.getElementById('posts').scrollIntoView({ behavior: 'smooth' })}
-          >
-            read the blog
-          </button>
           <a
             href="https://www.linkedin.com/in/vaishnavi-p-deshpande/"
             target="_blank"
             rel="noreferrer"
-            className={styles.btnGhost}
+            className={styles.btnPrimary}
           >
             connect on linkedin
           </a>
