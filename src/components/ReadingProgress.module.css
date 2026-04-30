@@ -1,0 +1,10 @@
+.bar {
+  position: fixed;
+  top: 60px; /* sits right under the 60px navbar */
+  left: 0;
+  height: 3px;
+  background: #2dd4bf;
+  z-index: 99;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}

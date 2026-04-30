@@ -5,6 +5,7 @@ import Tag from '../components/Tag'
 import Blobs from '../components/Blobs'
 import LiveEditor from '../components/LiveEditor'
 import LikeButton from '../components/LikeButton'
+import ReadingProgress from '../components/ReadingProgress'
 import styles from './Post.module.css'
 
 function renderContent(content) {
@@ -138,36 +139,6 @@ export default function Post() {
 
   useEffect(() => { window.scrollTo(0, 0) }, [id])
 
-  useEffect(() => {
-    if (!post) return
-
-    // Update title and meta per post
-    document.title = `${post.title} — console.blog`
-
-    const setMeta = (selector, attr, value) => {
-      const el = document.querySelector(selector)
-      if (el) el.setAttribute(attr, value)
-    }
-
-    setMeta('meta[name="description"]',         'content', post.excerpt)
-    setMeta('meta[property="og:title"]',         'content', post.title)
-    setMeta('meta[property="og:description"]',   'content', post.excerpt)
-    setMeta('meta[property="og:url"]',           'content', `https://console-blog.vaishnavi-deshpande.com/post/${post.id}`)
-    setMeta('meta[name="twitter:title"]',        'content', post.title)
-    setMeta('meta[name="twitter:description"]',  'content', post.excerpt)
-
-    // Reset to defaults when leaving the post
-    return () => {
-      document.title = 'console.blog — Where developers debug, learn and level up'
-      setMeta('meta[name="description"]',         'content', 'Real frontend debugging stories, CSS deep dives and best practices. Interactive code editors on every post.')
-      setMeta('meta[property="og:title"]',         'content', 'console.blog — Where developers debug, learn and level up')
-      setMeta('meta[property="og:description"]',   'content', 'Real frontend debugging stories, CSS deep dives and best practices.')
-      setMeta('meta[property="og:url"]',           'content', 'https://console-blog.vaishnavi-deshpande.com')
-      setMeta('meta[name="twitter:title"]',        'content', 'console.blog — Where developers debug, learn and level up')
-      setMeta('meta[name="twitter:description"]',  'content', 'Real frontend debugging stories, CSS deep dives and best practices.')
-    }
-  }, [post])
-
   if (!post) {
     return (
       <div style={{ padding: '4rem 2rem', textAlign: 'center', fontFamily: 'var(--mono)', color: 'var(--muted)' }}>
@@ -181,6 +152,7 @@ export default function Post() {
 
   return (
     <>
+      <ReadingProgress />
       <Blobs />
       <article className={styles.article}>
         <button className={styles.back} onClick={() => navigate(-1)}>← back</button>
