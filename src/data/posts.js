@@ -942,6 +942,487 @@ This one is just life advice.
 
 Global CSS classes are landmines. Treat every rename like you're defusing one - slowly, with full visibility of everything it touches. One ctrl+shift+F before you delete anything. That's all it takes.`,
   },
+  {
+    id: 'flexbox-vs-grid',
+    title: 'Flexbox vs Grid — When to Use Which (and When You\'re Using the Wrong One)',
+    excerpt:
+      'Both are great. But they solve different problems — and using the wrong one makes your CSS harder to read, harder to maintain, and occasionally broken in ways you can\'t explain.',
+    tag: 'css',
+    date: 'Apr 30, 2026',
+    readTime: '6 min read',
+    featured: false,
+    content: `You've been there. You need a layout, you pick one, it works, you move on. But deep down you're not sure if you chose the right tool. Are you using Flexbox when you should be using Grid? Or Grid when Flexbox would've been 3 lines?
+
+Here's the honest answer: both are great. But they solve *different* problems — and using the wrong one makes your CSS harder to read, harder to maintain, and occasionally broken in ways you can't explain.
+
+Let's settle this once and for all.
+
+## The Core Difference — One Sentence Each
+
+**Flexbox** thinks in one dimension — a row *or* a column.
+**Grid** thinks in two dimensions — rows *and* columns simultaneously.
+
+That's it. That's the whole decision tree. Everything else follows from this.
+
+## When to Use Flexbox
+
+Flexbox is perfect when you're aligning things *along a single axis* — navigation bars, button groups, centering a single item, stacking cards vertically.
+
+\`\`\`csshtml
+HTML:
+<p class="hint">👆 Flexbox: items flow along one axis. This is the sweet spot for navbars and button rows.</p>
+<nav class="nav">
+  <a href="#">Home</a>
+  <a href="#">Blog</a>
+  <a href="#">About</a>
+  <a href="#">Contact</a>
+</nav>
+<p class="hint" style="margin-top:1.5rem">Centering with Flexbox — the classic use case:</p>
+<div class="center-demo">
+  <div class="box">I am centered</div>
+</div>
+CSS:
+body { background: #0d0d0f; color: #e8e8f0; font-family: sans-serif; padding: 1.5rem; }
+.hint { font-size: 12px; color: #2dd4bf; margin-bottom: 0.75rem; }
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: #141417;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.nav a {
+  color: #e8e8f0;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  background: rgba(124,106,247,0.12);
+  transition: background 0.2s;
+}
+.nav a:hover { background: rgba(124,106,247,0.25); }
+
+.center-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background: #141417;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+}
+.box {
+  background: #7c6af7;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+\`\`\`
+
+**Use Flexbox when:**
+- Building navigation bars
+- Centering a single element
+- Aligning items in a row with spacing between them
+- Stacking things vertically with consistent gaps
+- You only care about one axis
+
+## When to Use Grid
+
+Grid is for two-dimensional layouts — when you need control over both rows *and* columns at the same time. Page layouts, card grids, dashboards, anything that has a defined structure in both directions.
+
+\`\`\`csshtml
+HTML:
+<p class="hint">👆 Grid: control rows AND columns simultaneously. Try editing grid-template-columns.</p>
+<div class="grid">
+  <div class="card header-card">Header</div>
+  <div class="card sidebar-card">Sidebar</div>
+  <div class="card main-card">Main Content</div>
+  <div class="card footer-card">Footer</div>
+</div>
+CSS:
+body { background: #0d0d0f; color: #e8e8f0; font-family: sans-serif; padding: 1.5rem; }
+.hint { font-size: 12px; color: #2dd4bf; margin-bottom: 0.75rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  gap: 0.75rem;
+  height: 260px;
+}
+.card {
+  background: #141417;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-card  { grid-area: header;  background: rgba(124,106,247,0.15); color: #7c6af7; }
+.sidebar-card { grid-area: sidebar; background: rgba(45,212,191,0.1);  color: #2dd4bf; }
+.main-card    { grid-area: main;    background: rgba(249,115,22,0.1);  color: #f97316; }
+.footer-card  { grid-area: footer;  background: rgba(244,114,182,0.1); color: #f472b6; }
+\`\`\`
+
+**Use Grid when:**
+- Building page layouts (header, sidebar, main, footer)
+- Creating card grids where rows and columns need to align
+- You need items to span multiple rows or columns
+- You're thinking about the layout from the outside in
+
+## The Classic Mistake
+
+Using Grid for a simple horizontal list of items:
+
+\`\`\`csshtml
+HTML:
+<p class="hint" style="color:#f472b6">❌ Wrong: using Grid for a simple nav — overkill</p>
+<nav class="nav-grid">
+  <a href="#">Home</a>
+  <a href="#">Blog</a>
+  <a href="#">About</a>
+</nav>
+<p class="hint" style="color:#2dd4bf;margin-top:1.5rem">✅ Right: Flexbox is perfect here</p>
+<nav class="nav-flex">
+  <a href="#">Home</a>
+  <a href="#">Blog</a>
+  <a href="#">About</a>
+</nav>
+CSS:
+body { background: #0d0d0f; color: #e8e8f0; font-family: sans-serif; padding: 1.5rem; }
+.hint { font-size: 12px; margin-bottom: 0.75rem; }
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #141417;
+  border-radius: 8px;
+  border: 1px solid rgba(244,114,182,0.3);
+}
+.nav-flex {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #141417;
+  border-radius: 8px;
+  border: 1px solid rgba(45,212,191,0.3);
+  margin-top: 0.5rem;
+}
+.nav-grid a, .nav-flex a {
+  color: #e8e8f0;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.06);
+}
+\`\`\`
+
+## Can You Use Both Together?
+
+Absolutely — and you often should. Grid for the macro layout, Flexbox for the micro alignment inside each cell.
+
+\`\`\`csshtml
+HTML:
+<p class="hint">Grid for the overall layout, Flexbox inside each card for alignment</p>
+<div class="page-grid">
+  <div class="card">
+    <div class="card-inner">
+      <span class="icon">🚀</span>
+      <div>
+        <div class="card-title">Fast</div>
+        <div class="card-sub">Optimised builds</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-inner">
+      <span class="icon">🎨</span>
+      <div>
+        <div class="card-title">Beautiful</div>
+        <div class="card-sub">Clean by default</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-inner">
+      <span class="icon">🔒</span>
+      <div>
+        <div class="card-title">Secure</div>
+        <div class="card-sub">Sandboxed execution</div>
+      </div>
+    </div>
+  </div>
+</div>
+CSS:
+body { background: #0d0d0f; color: #e8e8f0; font-family: sans-serif; padding: 1.5rem; }
+.hint { font-size: 12px; color: #2dd4bf; margin-bottom: 0.75rem; }
+
+/* Grid — macro layout */
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+/* Flexbox — micro alignment inside each card */
+.card {
+  background: #141417;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.card-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.icon { font-size: 1.75rem; }
+.card-title { font-weight: bold; font-size: 14px; margin-bottom: 2px; }
+.card-sub { font-size: 12px; color: #6b6b7e; }
+\`\`\`
+
+## The Decision Cheat Sheet
+
+| Situation | Use |
+|-----------|-----|
+| Navbar, button row, horizontal list | Flexbox |
+| Centering one element | Flexbox |
+| Page layout (header/sidebar/main) | Grid |
+| Card grid that needs row alignment | Grid |
+| Items inside a grid cell | Flexbox |
+| Unknown number of items that wrap | Flexbox |
+| Precise column + row placement | Grid |
+
+## TL;DR
+
+- **Flexbox** = one axis, items flow, great for alignment and spacing
+- **Grid** = two axes, defined structure, great for layouts
+- When in doubt: if you're thinking about rows *and* columns at the same time → Grid. If you're just arranging things in a line → Flexbox
+- They're not competitors. Use both. Grid for the layout, Flexbox for the components inside.`,
+  },
+  {
+    id: 'console-log-lies',
+    title: 'Why console.log Lies to You (and What to Use Instead)',
+    excerpt:
+      'console.log is every developer\'s first debugging tool. It\'s also one of the most misleading ones — not because it\'s broken, but because it doesn\'t always show you what you think it\'s showing you.',
+    tag: 'debug',
+    date: 'Apr 30, 2026',
+    readTime: '5 min read',
+    featured: false,
+    content: `\`console.log\` is every developer's first debugging tool. It's also one of the most misleading ones.
+
+Not because it's broken — but because it doesn't always show you what you *think* it's showing you. Objects get mutated after you log them. Async timing makes logs appear out of order. And you're probably missing half the console API that would make your debugging life significantly easier.
+
+Let's fix that.
+
+## The Big Lie: Logging Objects
+
+This is the one that catches everyone. You log an object, expand it in DevTools, and the values look wrong — or different from what you expected at that moment in time.
+
+\`\`\`js
+// Run this — then expand the logged object in the Result panel
+// The values might surprise you
+
+const user = { name: 'Alice', score: 0 }
+console.log('Logged user:', user)   // looks fine right now...
+
+user.score = 100
+user.name = 'Bob'
+
+// Now look at the logged object above — it shows score: 100, name: 'Bob'
+// Not what it was when you logged it!
+console.log('After mutation — name:', user.name, 'score:', user.score)
+\`\`\`
+
+**Why this happens:** \`console.log\` logs a *reference* to the object, not a snapshot. When you expand it in DevTools, you're seeing the object's *current* state — not its state at the moment you called \`console.log\`.
+
+**The fix:** Serialize it first.
+
+\`\`\`js
+const user = { name: 'Alice', score: 0 }
+
+console.log('BAD  (reference):', user)
+console.log('GOOD (snapshot) :', JSON.parse(JSON.stringify(user)))
+console.log('ALSO GOOD       :', { ...user })   // shallow spread works for flat objects
+
+user.score = 100
+user.name = 'Bob'
+
+console.log('---')
+console.log('After mutation — the first log above now shows Bob/100')
+console.log('The second and third still show Alice/0 — always accurate')
+\`\`\`
+
+## console.table — Stop Logging Arrays Like This
+
+\`\`\`js
+const users = [
+  { id: 1, name: 'Alice', role: 'admin',  score: 95 },
+  { id: 2, name: 'Bob',   role: 'member', score: 72 },
+  { id: 3, name: 'Carol', role: 'member', score: 88 },
+]
+
+// The way most people do it — hard to scan
+console.log('Array:', users)
+
+// The way you should do it — renders a proper table
+console.table(users)
+
+// Filter to specific columns only
+console.table(users, ['name', 'score'])
+\`\`\`
+
+\`console.table\` renders a proper sortable table in DevTools. For any array of objects this is miles better than \`console.log\`.
+
+## console.group — Stop Scrolling Through a Wall of Logs
+
+\`\`\`js
+function processOrder(order) {
+  console.group(\`Order #\${order.id}\`)
+  console.log('Customer:', order.customer)
+  console.log('Items:', order.items)
+
+  console.group('Payment')
+  console.log('Method:', order.payment.method)
+  console.log('Amount:', order.payment.amount)
+  console.groupEnd()
+
+  console.log('Status:', order.status)
+  console.groupEnd()
+}
+
+processOrder({
+  id: 1042,
+  customer: 'Alice',
+  items: ['CSS book', 'Mechanical keyboard'],
+  payment: { method: 'card', amount: 149.99 },
+  status: 'confirmed'
+})
+
+processOrder({
+  id: 1043,
+  customer: 'Bob',
+  items: ['Standing desk'],
+  payment: { method: 'paypal', amount: 299.00 },
+  status: 'pending'
+})
+\`\`\`
+
+Collapsible, nested, labelled. When you're logging inside a loop or across multiple function calls, this keeps the console readable.
+
+## console.time — Measure Performance Properly
+
+\`\`\`js
+// No more Date.now() subtraction — console.time does it for you
+
+console.time('loop')
+let sum = 0
+for (let i = 0; i < 1000000; i++) {
+  sum += i
+}
+console.timeEnd('loop')
+
+// Compare two approaches
+const nums = Array.from({ length: 10000 }, (_, i) => i)
+
+console.time('reduce')
+const total1 = nums.reduce((acc, n) => acc + n, 0)
+console.timeEnd('reduce')
+
+console.time('for-loop')
+let total2 = 0
+for (let i = 0; i < nums.length; i++) total2 += nums[i]
+console.timeEnd('for-loop')
+
+console.log('Results match:', total1 === total2)
+\`\`\`
+
+## console.warn and console.error — Use Them Intentionally
+
+\`\`\`js
+// Notice how each level looks different in the output
+
+function divide(a, b) {
+  if (typeof a !== 'number' || typeof b !== 'number') {
+    console.error('divide() expects numbers, got:', typeof a, typeof b)
+    return null
+  }
+  if (b === 0) {
+    console.warn('divide() called with b=0, returning Infinity')
+    return Infinity
+  }
+  return a / b
+}
+
+console.log(divide(10, 2))     // normal log
+console.log(divide(10, 0))     // warn — yellow in DevTools
+console.log(divide('10', 2))   // error — red in DevTools
+\`\`\`
+
+\`console.warn\` = something works but probably shouldn't.
+\`console.error\` = something is broken.
+
+Using these intentionally means when you scan your console, red things are *actually* problems — not just debug noise.
+
+## console.assert — Catch Bugs Inline
+
+\`\`\`js
+// console.assert only fires when the condition is FALSE — silent otherwise
+
+function getDiscount(price, userType) {
+  const discount = userType === 'premium' ? 0.2 : 0
+  const finalPrice = price * (1 - discount)
+
+  console.assert(finalPrice >= 0, 'Negative price detected!', { price, discount, finalPrice })
+
+  return finalPrice
+}
+
+console.log(getDiscount(100, 'premium'))  // 80 — no assertion
+console.log(getDiscount(100, 'basic'))    // 100 — no assertion
+console.log(getDiscount(-50, 'premium'))  // assertion fires!
+\`\`\`
+
+Great for sanity checks during development — zero noise when things are working, instant signal when they're not.
+
+## The Full Cheat Sheet
+
+| Method | Use it for |
+|--------|-----------|
+| \`console.log\` | General output — spread objects for accurate snapshots |
+| \`console.table\` | Arrays of objects — way more readable |
+| \`console.group\` | Grouping related logs — collapsible in DevTools |
+| \`console.time\` | Measuring how long something takes |
+| \`console.warn\` | Something works but is suspicious |
+| \`console.error\` | Something is broken |
+| \`console.assert\` | Inline sanity checks — only fires when false |
+| \`console.count\` | Count how many times a line runs |
+| \`console.clear\` | Clean the console before a fresh test run |
+
+## TL;DR
+
+- \`console.log\` on objects shows *current* state, not state-at-log-time — use \`{ ...obj }\` or \`JSON.parse(JSON.stringify(obj))\` for snapshots
+- \`console.table\` for arrays — dramatically more readable
+- \`console.group\` for anything that logs in loops or across multiple steps
+- \`console.time\` instead of manual \`Date.now()\` subtraction
+- Use \`warn\` and \`error\` intentionally — so red actually means broken
+- \`console.assert\` for inline sanity checks — silent when fine, loud when not`,
+  },
 ]
 
 export const tagMeta = {
