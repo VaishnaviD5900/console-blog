@@ -45,18 +45,21 @@ const buildJsPreview = (code) => `<!DOCTYPE html>
        padding:1.5rem;font-size:13px;line-height:1.7;}
   #out{background:#141417;border:1px solid rgba(255,255,255,0.07);
        border-radius:8px;padding:1rem;min-height:60px;white-space:pre-wrap;}
-  .l{color:#2dd4bf;margin:2px 0;} .l::before{content:'> ';color:#6b6b7e;}
-  .e{color:#f472b6;}             .e::before{content:'✕ ';}
+  .l{color:#2dd4bf;margin:2px 0;}
+  .w{color:#f97316;margin:2px 0;}
+  .e{color:#f472b6;margin:2px 0;}
 </style></head><body>
 <div id="out"></div>
 <script>
   const o=document.getElementById('out');
-  console.log=(...a)=>{const d=document.createElement('div');d.className='l';
-    d.textContent=a.map(x=>typeof x==='object'?JSON.stringify(x,null,2):String(x)).join(' ');o.appendChild(d);}
-  console.error=(...a)=>{const d=document.createElement('div');d.className='e';
-    d.textContent=a.join(' ');o.appendChild(d);}
+  const _line=(cls,prefix,args)=>{const d=document.createElement('div');d.className=cls;
+    d.textContent=prefix+args.map(x=>typeof x==='object'?JSON.stringify(x,null,2):String(x)).join(' ');o.appendChild(d);}
+  console.log   =(...a)=>_line('l','> ',a);
+  console.warn  =(...a)=>_line('w','⚠ ',a);
+  console.error =(...a)=>_line('e','✕ ',a);
+  console.assert=(cond,...a)=>{ if(!cond) _line('e','✕ Assertion failed: ',a); }
   window.onerror=(m,s,l)=>{const d=document.createElement('div');d.className='e';
-    d.textContent=m+' (line '+l+')';o.appendChild(d);}
+    d.textContent='✕ '+m+' (line '+l+')';o.appendChild(d);}
   try{${code}}catch(e){console.error(e.message)}
 <\/script></body></html>`
 

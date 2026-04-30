@@ -1235,18 +1235,17 @@ Let's fix that.
 This is the one that catches everyone. You log an object, expand it in DevTools, and the values look wrong — or different from what you expected at that moment in time.
 
 \`\`\`js
-// Run this — then expand the logged object in the Result panel
-// The values might surprise you
+// Run this — the mutation happens AFTER the log
+// but the logged object shows the mutated values when expanded
 
 const user = { name: 'Alice', score: 0 }
-console.log('Logged user:', user)   // looks fine right now...
+console.log('Logged user:', JSON.stringify(user))   // snapshot at log time
 
 user.score = 100
 user.name = 'Bob'
 
-// Now look at the logged object above — it shows score: 100, name: 'Bob'
-// Not what it was when you logged it!
-console.log('After mutation — name:', user.name, 'score:', user.score)
+console.log('After mutation — name: ' + user.name + ', score: ' + user.score)
+console.log('The snapshot above still shows Alice/0 — always accurate')
 \`\`\`
 
 **Why this happens:** \`console.log\` logs a *reference* to the object, not a snapshot. When you expand it in DevTools, you're seeing the object's *current* state — not its state at the moment you called \`console.log\`.
@@ -1256,19 +1255,20 @@ console.log('After mutation — name:', user.name, 'score:', user.score)
 \`\`\`js
 const user = { name: 'Alice', score: 0 }
 
-console.log('BAD  (reference):', user)
-console.log('GOOD (snapshot) :', JSON.parse(JSON.stringify(user)))
-console.log('ALSO GOOD       :', { ...user })   // shallow spread works for flat objects
+console.log('BAD  (reference)  :', JSON.stringify(user))
+console.log('GOOD (JSON snap)  :', JSON.stringify(JSON.parse(JSON.stringify(user))))
+console.log('GOOD (spread snap):', JSON.stringify({ ...user }))
 
 user.score = 100
 user.name = 'Bob'
 
 console.log('---')
-console.log('After mutation — the first log above now shows Bob/100')
-console.log('The second and third still show Alice/0 — always accurate')
+console.log('All three above still show Alice/0 — mutation happened after')
 \`\`\`
 
 ## console.table — Stop Logging Arrays Like This
+
+The browser's built-in \`console.table\` renders a proper sortable grid in DevTools — but since this preview panel intercepts console output as text, open your browser DevTools console and run this to see the real magic:
 
 \`\`\`js
 const users = [
@@ -1277,33 +1277,28 @@ const users = [
   { id: 3, name: 'Carol', role: 'member', score: 88 },
 ]
 
-// The way most people do it — hard to scan
-console.log('Array:', users)
+// The way most people do it
+console.log('Logged as array:')
+users.forEach(function(u) {
+  console.log('  id=' + u.id + ' name=' + u.name + ' role=' + u.role + ' score=' + u.score)
+})
 
-// The way you should do it — renders a proper table
-console.table(users)
-
-// Filter to specific columns only
-console.table(users, ['name', 'score'])
+console.log('---')
+console.log('In your real DevTools: console.table(users) renders a full sortable table!')
+console.log('Try it: open DevTools console and paste: console.table(' + JSON.stringify(users) + ')')
 \`\`\`
-
-\`console.table\` renders a proper sortable table in DevTools. For any array of objects this is miles better than \`console.log\`.
 
 ## console.group — Stop Scrolling Through a Wall of Logs
 
 \`\`\`js
 function processOrder(order) {
-  console.group(\`Order #\${order.id}\`)
-  console.log('Customer:', order.customer)
-  console.log('Items:', order.items)
-
-  console.group('Payment')
-  console.log('Method:', order.payment.method)
-  console.log('Amount:', order.payment.amount)
-  console.groupEnd()
-
-  console.log('Status:', order.status)
-  console.groupEnd()
+  console.log('=== Order #' + order.id + ' ===')
+  console.log('  Customer: ' + order.customer)
+  console.log('  Items: ' + order.items.join(', '))
+  console.log('  Payment method: ' + order.payment.method)
+  console.log('  Payment amount: ' + order.payment.amount)
+  console.log('  Status: ' + order.status)
+  console.log('')
 }
 
 processOrder({
@@ -1321,9 +1316,9 @@ processOrder({
   payment: { method: 'paypal', amount: 299.00 },
   status: 'pending'
 })
-\`\`\`
 
-Collapsible, nested, labelled. When you're logging inside a loop or across multiple function calls, this keeps the console readable.
+console.log('In real DevTools: use console.group("Order #" + id) for collapsible nested logs!')
+\`\`\`
 
 ## console.time — Measure Performance Properly
 
@@ -1331,35 +1326,33 @@ Collapsible, nested, labelled. When you're logging inside a loop or across multi
 // No more Date.now() subtraction — console.time does it for you
 
 console.time('loop')
-let sum = 0
-for (let i = 0; i < 1000000; i++) {
+var sum = 0
+for (var i = 0; i < 1000000; i++) {
   sum += i
 }
 console.timeEnd('loop')
 
 // Compare two approaches
-const nums = Array.from({ length: 10000 }, (_, i) => i)
+var nums = Array.from({ length: 10000 }, function(_, i) { return i })
 
 console.time('reduce')
-const total1 = nums.reduce((acc, n) => acc + n, 0)
+var total1 = nums.reduce(function(acc, n) { return acc + n }, 0)
 console.timeEnd('reduce')
 
 console.time('for-loop')
-let total2 = 0
-for (let i = 0; i < nums.length; i++) total2 += nums[i]
+var total2 = 0
+for (var j = 0; j < nums.length; j++) total2 += nums[j]
 console.timeEnd('for-loop')
 
-console.log('Results match:', total1 === total2)
+console.log('Results match: ' + (total1 === total2))
 \`\`\`
 
 ## console.warn and console.error — Use Them Intentionally
 
 \`\`\`js
-// Notice how each level looks different in the output
-
 function divide(a, b) {
   if (typeof a !== 'number' || typeof b !== 'number') {
-    console.error('divide() expects numbers, got:', typeof a, typeof b)
+    console.error('divide() expects numbers, got: ' + typeof a + ', ' + typeof b)
     return null
   }
   if (b === 0) {
@@ -1369,9 +1362,9 @@ function divide(a, b) {
   return a / b
 }
 
-console.log(divide(10, 2))     // normal log
-console.log(divide(10, 0))     // warn — yellow in DevTools
-console.log(divide('10', 2))   // error — red in DevTools
+console.log('divide(10, 2)  = ' + divide(10, 2))
+console.log('divide(10, 0)  = ' + divide(10, 0))
+console.log('divide("10",2) = ' + divide('10', 2))
 \`\`\`
 
 \`console.warn\` = something works but probably shouldn't.
@@ -1385,17 +1378,17 @@ Using these intentionally means when you scan your console, red things are *actu
 // console.assert only fires when the condition is FALSE — silent otherwise
 
 function getDiscount(price, userType) {
-  const discount = userType === 'premium' ? 0.2 : 0
-  const finalPrice = price * (1 - discount)
+  var discount = userType === 'premium' ? 0.2 : 0
+  var finalPrice = price * (1 - discount)
 
-  console.assert(finalPrice >= 0, 'Negative price detected!', { price, discount, finalPrice })
+  console.assert(finalPrice >= 0, 'Negative price! price=' + price + ' discount=' + discount)
 
   return finalPrice
 }
 
-console.log(getDiscount(100, 'premium'))  // 80 — no assertion
-console.log(getDiscount(100, 'basic'))    // 100 — no assertion
-console.log(getDiscount(-50, 'premium'))  // assertion fires!
+console.log('getDiscount(100, "premium") = ' + getDiscount(100, 'premium'))
+console.log('getDiscount(100, "basic")   = ' + getDiscount(100, 'basic'))
+console.log('getDiscount(-50, "premium") = ' + getDiscount(-50, 'premium'))
 \`\`\`
 
 Great for sanity checks during development — zero noise when things are working, instant signal when they're not.
