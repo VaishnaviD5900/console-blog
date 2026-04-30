@@ -1,6 +1,7 @@
 export const posts = [
   {
     id: 'z-index-stacking-contexts',
+    publishDate: '2026-04-26',
     title: "Why Your z-index Isn't Working (And Why 999999 Won't Save You)",
     excerpt:
       "You've typed z-index: 99999. It still doesn't work. There's a reason - and the number is never the problem. Let's talk about stacking contexts.",
@@ -334,6 +335,7 @@ Next time you're tempted to type \`z-index: 99999\`, pause. Open DevTools. Check
   },
   {
     id: 'stop-using-px',
+    publishDate: '2026-04-15',
     title: "Stop Using px for Everything. Here's What to Use Instead.",
     excerpt:
       'rem, em, vh, vw, clamp() - when to use what and why your font sizes are probably wrong.',
@@ -589,6 +591,7 @@ Start with this, and you'll write CSS that's more flexible, more accessible, and
   },
   {
     id: 'css-has-selector',
+    publishDate: '2026-04-05',
     title: "CSS :has() Is the Parent Selector We Waited 10 Years For",
     excerpt:
       'No JavaScript. No wrapper divs. Just a CSS selector that finally lets you style a parent based on its children.',
@@ -891,6 +894,7 @@ As of 2024, \`:has()\` is supported in all major browsers - Chrome, Firefox, Saf
   },
   {
     id: 'prod-css-delete',
+    publishDate: '2026-04-10',
     title: 'How I Accidentally Deleted the Entire Layout on Prod',
     excerpt:
       'One wrong CSS override. One missing class name. One very long Friday afternoon.',
@@ -944,6 +948,7 @@ Global CSS classes are landmines. Treat every rename like you're defusing one - 
   },
   {
     id: 'flexbox-vs-grid',
+    publishDate: '2026-04-30',
     title: 'Flexbox vs Grid — When to Use Which (and When You\'re Using the Wrong One)',
     excerpt:
       'Both are great. But they solve different problems — and using the wrong one makes your CSS harder to read, harder to maintain, and occasionally broken in ways you can\'t explain.',
@@ -1217,6 +1222,7 @@ body { background: #0d0d0f; color: #e8e8f0; font-family: sans-serif; padding: 1.
   },
   {
     id: 'console-log-lies',
+    publishDate: '2026-04-30',
     title: 'Why console.log Lies to You (and What to Use Instead)',
     excerpt:
       'console.log is every developer\'s first debugging tool. It\'s also one of the most misleading ones — not because it\'s broken, but because it doesn\'t always show you what you think it\'s showing you.',
@@ -1415,6 +1421,28 @@ Great for sanity checks during development — zero noise when things are workin
 - \`console.time\` instead of manual \`Date.now()\` subtraction
 - Use \`warn\` and \`error\` intentionally — so red actually means broken
 - \`console.assert\` for inline sanity checks — silent when fine, loud when not`,
+  },
+  {
+    id: 'stop-writing-css-2015',
+    title: 'Stop Writing CSS Like It\'s 2015 — Modern Approaches You Should Know',
+    excerpt: 'Custom properties, cascade layers, logical properties, and container queries — the CSS features that change how you write styles forever.',
+    tag: 'css',
+    date: 'May 5, 2026',
+    publishDate: '2026-05-05',
+    readTime: '7 min read',
+    featured: false,
+    content: `Coming soon.`,
+  },
+  {
+    id: 'why-react-app-slow',
+    title: 'Why Your React App is Slow (And How to Fix It)',
+    excerpt: 'Unnecessary re-renders, giant bundles, useEffect doing too much — the usual suspects, how to diagnose them, and exactly how to fix each one.',
+    tag: 'bestpractice',
+    date: 'May 12, 2026',
+    publishDate: '2026-05-12',
+    readTime: '8 min read',
+    featured: false,
+    content: `Coming soon.`,
   },
 ]
 
